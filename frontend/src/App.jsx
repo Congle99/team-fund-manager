@@ -1,20 +1,25 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import routes from "./routes";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import AuthLayout from "./layouts/AuthLayout";
+import Login from "./pages/Login";
+import DashboardPage from "./pages/DashboardPage";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={route.element}
-          />
-        ))}
+
+        {/* redirect mặc định */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+
+        {/* dashboard */}
+        <Route path="/dashboard" element={<DashboardPage />} />
+
+        {/* auth */}
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+        </Route>
+
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
